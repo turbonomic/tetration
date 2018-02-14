@@ -9,6 +9,9 @@ The code is not provided or supported by Cisco in any way, form, or fashion.
 ## The way it works
 The way the simulator works, is for every request, it will read the file in the format described below, and will generate the flow information in JSON format.
 
+The container may get started as follows:
+docker-compose up -d tetration 
+
 ### The file location and format
 The file is located in /home/turbonomic/config/flow_spec.txt.
 One could specify the location on the local disk by using **volumes** spec from the docker-compose.
