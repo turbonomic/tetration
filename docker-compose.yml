@@ -1,0 +1,33 @@
+version: '2'
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+      - subnet: 10.110.10.0/24
+        gateway: 10.110.10.1
+
+volumes:
+  tetrationdata: &localdriver
+    driver: local
+
+services:
+  tetration:
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges
+    read_only: true
+    tmpfs:
+      - /tmp
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n"
+    image: tetration
+    volumes:
+      - tetrationdata:/home/turbonomic/data
+      - /tmp/config:/home/turbonomic/config
+    ports:
+      - "443:9443"
+      - "28000:8000"
+    restart: always
